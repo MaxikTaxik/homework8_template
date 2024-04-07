@@ -40,7 +40,14 @@ def transfer_data(source: str, dest: str, num_row: int):
     dest: str - имя файла куда переносим
     num_row: int - номер переносимой строки
     """
-    pass
+    with open(source, 'r') as file:
+        list1 = file.read().split('\n')
+    with open(dest, 'a') as file2:
+        new_line = '\n' if read_all(dest) != "" else ""
+        if num_row > len(list1):
+            print("Колличество строк в файле меньше данного ввода.")
+            sys.exit()
+        file2.write(f'{new_line}{list1[num_row - 1]}')
 
 
 INFO_STRING = """
@@ -71,4 +78,6 @@ while True:
         print(search_user(file, data))
     elif mode == 4:
         # Тут нужно вызвать функцию с аргументами
-        pass
+        dest = 'dest.txt'
+        transfer_data(file, dest, int(input('Введите номер строки: ')))
+    
